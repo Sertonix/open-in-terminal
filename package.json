@@ -1,0 +1,19 @@
+{
+    "name": "open-in-terminal",
+    "version": "1.0.0",
+    "description": "Allow you to open terminals from the context menu",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Sertonix/open-in-terminal.git"
+    },
+    "author": "Sertonix",
+    "license": "MIT",
+    "consumedServices": {
+        "tree-view": {
+            "versions": {
+                "1.0.0": "consumeTreeView"
+            }
+        }
+    }
+}
