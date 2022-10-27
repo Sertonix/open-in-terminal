@@ -2,28 +2,6 @@ const {Disposable, CompositeDisposable} = require('atom');
 const {spawn} = require('child_process');
 const Path = require('path');
 
-const terminals = {
-    darwin: () => ({
-        default: "terminal",
-        terminals: {
-        },
-    }),
-    linux: () => ({
-        default: "terminal",
-        terminals: {
-        },
-    }),
-    win32: () => ({
-        default: "cmd",
-        terminals: {
-            cmd: {
-                command: `start ${process.env.comspec || Path.join(process.env.SystemRoot || 'C:/windows','system32/cmd.exe')}`,
-                shell: true
-            },
-        },
-    }),
-}[process.platform]?.() || {};
-
 let disposables, treeView;
 
 function openTerminal(cwd) {
