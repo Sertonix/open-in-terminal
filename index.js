@@ -6,7 +6,7 @@ let disposables, treeView;
 
 function openTerminal(cwd) {
     cwd = Path.resolve(cwd);
-    const [cmd,...args] = atom.config.get("open-in-terminal.command").split(' '); // TODO handle quotes https://github.com/mccormicka/string-argv
+    const [cmd,...args] = atom.config.get("open-in-terminal-sertonix.command").split(' '); // TODO handle quotes https://github.com/mccormicka/string-argv
     spawn(cmd, args, {cwd});
 }
 
@@ -28,19 +28,19 @@ function activate() {
     disposables = new CompositeDisposable();
     disposables.add(
         atom.commands.add('atom-workspace', {
-            'open-in-terminal:open-selected-folders': openFromTreeView,
+            'open-in-terminal-sertonix:open-selected-folders': openFromTreeView,
         }),
         atom.commands.add('atom-workspace', {
-            'open-in-terminal:open-text-editor': openFromTextEditor,
+            'open-in-terminal-sertonix:open-text-editor': openFromTextEditor,
         }),
         atom.contextMenu.add({
             '.tree-view li.directory': [{
                 label: 'Open in Terminal',
-                command: 'open-in-terminal:open-selected-folders'
+                command: 'open-in-terminal-sertonix:open-selected-folders'
             }],
             '.tab.texteditor': [{
                 label: 'Open in Terminal',
-                command: 'open-in-terminal:open-text-editor'
+                command: 'open-in-terminal-sertonix:open-text-editor'
             }],
         }),
     );
