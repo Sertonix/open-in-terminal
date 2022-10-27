@@ -6,7 +6,8 @@ let disposables, treeView;
 
 function openTerminal(cwd) {
     cwd = Path.resolve(cwd);
-    const [cmd,...args] = atom.config.get("open-in-terminal-sertonix.command").split(' '); // TODO handle quotes https://github.com/mccormicka/string-argv
+    const [cmd,...args] = atom.config.get('open-in-terminal-sertonix.command').replace('{CWD}',cwd).split(' '); // TODO handle quotes https://github.com/mccormicka/string-argv
+    console.log(args);
     spawn(cmd, args, {cwd});
 }
 
@@ -61,8 +62,9 @@ module.exports = {
             description: 'The command used to spawn the terminal',
             type: 'string',
             default: {
+                linux: () => '/usr/bin/gnome-terminal --window --working-directory {CWD}',
                 win32: (cmdPath) => `${cmdPath = (process.env.comspec || Path.join(process.env.SystemRoot || 'C:/windows','system32/cmd.exe'))} /c start ${cmdPath}`,
-                darwin: () => "open -b com.apple.Terminal .",
+                darwin: () => 'open -b com.apple.Terminal "{CWD}"',
             }[process.platform]?.() || '',
             order: 1,
         },
