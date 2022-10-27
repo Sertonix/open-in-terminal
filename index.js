@@ -7,7 +7,7 @@ let disposables, treeView;
 function openTerminal(cwd) {
     cwd = Path.resolve(cwd);
     const [cmd,...args] = `start ${process.env.comspec || Path.join(process.env.SystemRoot || 'C:/windows','system32/cmd.exe')}`.split(' '); // TODO handle quotes https://github.com/mccormicka/string-argv
-    spawn(cmd, args, {cwd,shell:true});
+    spawn(cmd, args, {cwd});
 }
 
 function openFromTreeView() {
@@ -62,17 +62,10 @@ module.exports = {
 			type: "string",
 			default: {
                 linux: () => "/usr/bin/gnome-terminal --working-directory {cwd}",
-                win32: () => `start ${process.env.comspec || Path.join(process.env.SystemRoot || 'C:/windows','system32/cmd.exe')}`,
                 darwin: () => "open -b com.apple.Terminal {cwd}",
+                win32: (cmdPath) => `${cmdPath = (process.env.comspec || Path.join(process.env.SystemRoot || 'C:/windows','system32/cmd.exe'))} /c start ${cmdPath}`,
             }[process.platform]?.() || '',
             order: 1,
-		},
-		useShell: {
-			title: "Use shell",
-			description: "Enable if `spawn` ",
-			type: "boolean",
-			default: process.platform === "win32",
-            order: 2,
 		},
     }
 };
