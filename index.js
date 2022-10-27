@@ -61,9 +61,9 @@ module.exports = {
 			description: "The command used to spawn the terminal",
 			type: "string",
 			default: {
-                linux: () => "/usr/bin/gnome-terminal --working-directory {cwd}",
-                darwin: () => "open -b com.apple.Terminal {cwd}",
+                linux: () => "/usr/bin/gnome-terminal --working-directory .",
                 win32: (cmdPath) => `${cmdPath = (process.env.comspec || Path.join(process.env.SystemRoot || 'C:/windows','system32/cmd.exe'))} /c start ${cmdPath}`,
+                darwin: () => "open -b com.apple.Terminal .",
             }[process.platform]?.() || '',
             order: 1,
 		},
