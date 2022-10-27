@@ -1,5 +1,5 @@
 {
-    "name": "open-in-terminal",
+    "name": "@sertonix/open-in-terminal",
     "version": "1.0.0",
     "description": "Allow you to open terminals from the context menu",
     "main": "index.js",
