@@ -6,7 +6,7 @@ let disposables, treeView;
 
 function openTerminal(cwd) {
     cwd = Path.resolve(cwd);
-    const [cmd,...args] = `start ${process.env.comspec || Path.join(process.env.SystemRoot || 'C:/windows','system32/cmd.exe')}`.split(' '); // TODO handle quotes https://github.com/mccormicka/string-argv
+    const [cmd,...args] = atom.config.get("open-in-terminal.command").split(' '); // TODO handle quotes https://github.com/mccormicka/string-argv
     spawn(cmd, args, {cwd});
 }
 
