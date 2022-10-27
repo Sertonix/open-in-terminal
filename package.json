@@ -15,5 +15,8 @@
                 "1.0.0": "consumeTreeView"
             }
         }
+    },
+    "dependencies": {
+        "string-argv": "^0.3.1"
     }
 }

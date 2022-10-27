@@ -1,13 +1,13 @@
 const {Disposable, CompositeDisposable} = require('atom');
 const {spawn} = require('child_process');
 const Path = require('path');
+const {parseArgsStringToArgv} = require('string-argv');
 
 let disposables, treeView;
 
 function openTerminal(cwd) {
     cwd = Path.resolve(cwd);
-    const [cmd,...args] = atom.config.get('open-in-terminal-sertonix.command').replace('{CWD}',cwd).split(' '); // TODO handle quotes https://github.com/mccormicka/string-argv
-    console.log(args);
+    const [cmd,...args] = parseArgsStringToArgv(atom.config.get('open-in-terminal-sertonix.command').replace('{CWD}',cwd));
     spawn(cmd, args, {cwd});
 }
 
@@ -62,11 +62,11 @@ module.exports = {
             description: 'The command used to spawn the terminal',
             type: 'string',
             default: {
-                linux: () => '/usr/bin/gnome-terminal --window --working-directory {CWD}',
+                linux: () => '/usr/bin/gnome-terminal --window --working-directory "{CWD}"',
                 win32: (cmdPath) => `${cmdPath = (process.env.comspec || Path.join(process.env.SystemRoot || 'C:/windows','system32/cmd.exe'))} /c start ${cmdPath}`,
                 darwin: () => 'open -b com.apple.Terminal "{CWD}"',
             }[process.platform]?.() || '',
             order: 1,
         },
-    }
+    },
 };
